@@ -23,7 +23,7 @@ get '/' do
 end
 
 get '/ping' do
-	{msg: 'pong'}
+	{msg: 'pong from barry service manager'}
 end
 	
 puts "Ready to rock".light_red

@@ -1,11 +1,10 @@
-$users = $db.collection('users')
-$users.ensure_index( { username: 1 }, { unique: true } )
+# $users = $db.collection('users')
+# $users.ensure_index( { username: 1 }, { unique: true } )
 
 module User
 	extend self
 
 def create(params)	
-    bp
     data = params.just('username', 'password', 'name')
 
     return nil unless data.password
