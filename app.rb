@@ -25,6 +25,19 @@ end
 get '/ping' do
 	{msg: 'pong from barry service manager'}
 end
+
+require 'open3'
+# GET localhost:6060/exec?cmd=ls
+# GET localhost:6060/exec?cmd=cat app.rb
+get '/exec' do 
+	cmd = params[:cmd]
+	res = nil
+	Open3.popen3(cmd) do |stdin, stdout, stderr|
+  	res = stdout.read
+	end
+
+	{res:res}
+end 
 	
 puts "Ready to rock".light_red
 
