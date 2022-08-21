@@ -1,10 +1,8 @@
-Barry is a lightweight, low-ceremony, ready-to-use boiler-plate Sinatra-based Ruby web-app API BE based on principles of extreme minimalism and optimized for Developer Happiness.
+This Service Manager allows an HTTP interface to manage servers and apps on Barry's Cloud servers.
 
-## Design Principles & Features
+## Installation 
 
-* BE as API, agnostic to client, accepts and returns JSON.
-* [NoSQL]-DB-as-model - no models in code, DB is source of truth.
-* Statelessness of UX session; state is managed in client, data is managed in server. 
-* Client-oriented routes over pure RESTfulness 
-* Code minimalism. Empty lines tell no bugs or maintenance.
-* Optimizing for developer happiness!
+$ git clone https://github.com/sellarafaeli/barry-service-manager.git
+$ cd barry-service-manager
+$ bundle install
+$ bundle exec rackup -p 79
