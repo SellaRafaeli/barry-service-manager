@@ -8,3 +8,5 @@ Barry is a lightweight, low-ceremony, ready-to-use boiler-plate Sinatra-based Ru
 * Client-oriented routes over pure RESTfulness 
 * Code minimalism. Empty lines tell no bugs or maintenance.
 * Optimizing for developer happiness!
+
+(Test edit)
