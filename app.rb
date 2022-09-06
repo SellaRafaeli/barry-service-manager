@@ -19,7 +19,8 @@ require './users/users_api'
 require './current_user/current_user_api'
 
 get '/' do 
-	send_file File.join(settings.public_folder, 'index.html')
+	#send_file File.join(settings.public_folder, 'index.html')
+	{msg: 'hello from bsm root'}
 end
 
 get '/ping' do
@@ -38,6 +39,19 @@ get '/exec' do
 
 	{res:res}
 end 
+
+get '/example' do 
+	{res: `./scripts/_example.sh`}
+end
 	
+SCRIPTS = Dir['./scripts/**/*.sh'].map {|f| f.gsub('./scripts/','').gsub('.sh','') }
+
+SCRIPTS.each do |script|
+	puts "setting up /#{script}"
+	get "/#{script}" do 
+		{res: `sudo ./scripts/#{script}.sh`}
+	end
+end
+
 puts "Ready to rock".light_red
 
