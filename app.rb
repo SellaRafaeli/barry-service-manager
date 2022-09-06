@@ -24,7 +24,7 @@ get '/' do
 end
 
 get '/ping' do
-	{msg: 'pong from barry service manager'}
+	{msg: 'pong from barry service manager', version: 'first version'}
 end
 
 require 'open3'
@@ -39,7 +39,6 @@ get '/exec' do
 
 	{res:res}
 end 
-
 
 # Script Actions API
 ADMIN_TOKEN = ENV['ADMIN_TOKEN'] || 'foo'
