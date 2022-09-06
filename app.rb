@@ -51,7 +51,7 @@ SCRIPTS.each do |script|
 		token = params[:token]
 		args  = params[:args] ? params[:args].split(',').join(' ') : ''
 		halt(401, 'missing token') unless token == ADMIN_TOKEN
-		{res: `./scripts/#{script}.sh #{args}`}
+		{res: `sudo ./scripts/#{script}.sh #{args}`}
 	end
 end
 
