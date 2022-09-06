@@ -40,16 +40,17 @@ get '/exec' do
 	{res:res}
 end 
 
-get '/example' do 
-	{res: `./scripts/_example.sh`}
-end
-	
-SCRIPTS = Dir['./scripts/**/*.sh'].map {|f| f.gsub('./scripts/','').gsub('.sh','') }
 
+# Script Actions API
+ADMIN_TOKEN = ENV['ADMIN_TOKEN'] || 'foo'
+
+SCRIPTS = Dir['./scripts/**/*.sh'].map {|f| f.gsub('./scripts/','').gsub('.sh','') }
 SCRIPTS.each do |script|
 	puts "setting up /#{script}"
-	get "/#{script}" do 
-		{res: `sudo ./scripts/#{script}.sh`}
+	# GET http://localhost:8100/scripts/_example?token=foo
+	get "/scripts/#{script}" do 
+		halt(401, 'missing token') unless params[:token] == ADMIN_TOKEN
+		{res: `./scripts/#{script}.sh`}
 	end
 end
 
