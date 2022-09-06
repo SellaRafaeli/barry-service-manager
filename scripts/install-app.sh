@@ -36,7 +36,7 @@ cat >"/etc/systemd/system/${SERVICE_NAME}.service" <<-EOF
 	Type=simple
 	WorkingDirectory=$TARGET
 	User=barry
-	ExecStart=bundle exec rackup -p 80
+	ExecStart=bundle exec rackup -p 80 -o 0.0.0.0
 	Restart=on-failure
 	AmbientCapabilities=CAP_NET_BIND_SERVICE
 	SyslogIdentifier=barry-app
