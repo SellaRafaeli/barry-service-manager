@@ -24,7 +24,7 @@ get '/' do
 end
 
 get '/ping' do
-	{msg: 'pong from barry service manager', version: 'first version'}
+	{msg: 'pong from barry service manager', version: 'second version'}
 end
 
 require 'open3'
