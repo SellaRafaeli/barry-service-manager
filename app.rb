@@ -47,10 +47,12 @@ ADMIN_TOKEN = ENV['ADMIN_TOKEN'] || 'foo'
 SCRIPTS = Dir['./scripts/**/*.sh'].map {|f| f.gsub('./scripts/','').gsub('.sh','') }
 SCRIPTS.each do |script|
 	puts "setting up /#{script}"
-	# GET http://localhost:8100/scripts/_example?token=foo
+	# GET http://localhost:8100/scripts/_example?token=foo&args=bar,baz
 	get "/scripts/#{script}" do 
-		halt(401, 'missing token') unless params[:token] == ADMIN_TOKEN
-		{res: `./scripts/#{script}.sh`}
+		token = params[:token]
+		args  = params[:args] ? params[:args].split(',').join(' ') : ''
+		halt(401, 'missing token') unless token == ADMIN_TOKEN
+		{res: `./scripts/#{script}.sh #{args}`}
 	end
 end
 
