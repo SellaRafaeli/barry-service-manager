@@ -22,9 +22,22 @@ cd "$TARGET"
 git clone --single-branch "$GITHUB_URL" "$TARGET"
 
 echo "--- Configuring application $APP_NAME ---"
-echo "MONGODB_URI=${MONGODB_CONN_TEMPLATE//BARRY_APP_NAME/${APP_NAME}}" > "$TARGET/.env"
+echo >"$TARGET/.env" <<-EOF
+  MONGODB_URI=${MONGODB_CONN_TEMPLATE//BARRY_APP_NAME/${APP_NAME}}
+  RACK_ENV=production
+EOF
 
 echo "--- Installing dependencies ---"
+# Some common dependencies like Nokogiri require more RAM to install than the server has,
+# so we temporarily enable swap
+fallocate -l 1G /swapfile
+chmod 600 /swapfile
+mkswap /swapfile
+swapon /swapfile
+function deallocate_swap {
+  swapoff /swapfile
+}
+trap deallocate_swap EXIT
 bundle install
 chown -R barry:barry "$TARGET"
 chmod a+r "$TARGET"
