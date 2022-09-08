@@ -21,6 +21,9 @@ mkdir -p "$TARGET"
 cd "$TARGET"
 git clone --single-branch "$GITHUB_URL" "$TARGET"
 
+echo "--- Configuring application $APP_NAME ---"
+echo "MONGODB_URI=${MONGODB_CONN_TEMPLATE//BARRY_APP_NAME/${APP_NAME}}" > "$TARGET/.env"
+
 echo "--- Installing dependencies ---"
 bundle install
 chown -R barry:barry "$TARGET"
