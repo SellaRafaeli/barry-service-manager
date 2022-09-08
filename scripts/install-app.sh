@@ -42,7 +42,7 @@ trap deallocate_swap EXIT
 bundle install
 chown -R barry:barry "$TARGET"
 chmod a+r "$TARGET"
-su barry -c 'GEM_HOME=/home/barry/.gem bundle install'
+su barry -c 'GEM_HOME=/home/barry/.gem sudo bundle install'
 
 echo "--- Creating systemd unit ---"
 cat >"/etc/systemd/system/${SERVICE_NAME}.service" <<-EOF
@@ -54,7 +54,7 @@ cat >"/etc/systemd/system/${SERVICE_NAME}.service" <<-EOF
 	Type=simple
 	WorkingDirectory=$TARGET
 	User=barry
-	ExecStart=bundle exec rackup -p 80 -o 0.0.0.0
+	ExecStart=sudo bundle exec rackup -p 80 -o 0.0.0.0
 	Restart=on-failure
 	AmbientCapabilities=CAP_NET_BIND_SERVICE
 	SyslogIdentifier=barry-app
