@@ -57,6 +57,7 @@ cat >"/etc/systemd/system/${SERVICE_NAME}.service" <<-EOF
 	Restart=on-failure
 	AmbientCapabilities=CAP_NET_BIND_SERVICE
 	SyslogIdentifier=barry-app
+	Environment=RACK_ENV=production
 
 	[Install]
 	WantedBy=multi-user.target

@@ -19,8 +19,9 @@ cat >/etc/systemd/system/barry-service-manager.service <<-EOF
 	ExecStart=bundle exec rackup -p 8100 -o 0.0.0.0
 	Restart=on-failure
 	SyslogIdentifier=barry-service-manager
+	Environment=RACK_ENV=production
 	Environment=MONGODB_CONN_TEMPLATE=${MONGODB_CONN_TEMPLATE}
-	Environment=TOKEN=${TOKEN}
+	Environment=ADMIN_TOKEN=${ADMIN_TOKEN}
 
 	[Install]
 	WantedBy=multi-user.target
