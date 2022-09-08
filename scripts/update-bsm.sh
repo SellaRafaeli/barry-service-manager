@@ -21,7 +21,7 @@ cat >/etc/systemd/system/barry-service-manager.service <<-EOF
 	SyslogIdentifier=barry-service-manager
 	Environment=RACK_ENV=production
 	Environment=MONGODB_CONN_TEMPLATE=${MONGODB_CONN_TEMPLATE}
-	Environment=ADMIN_TOKEN=${ADMIN_TOKEN}
+	Environment=ADMIN_TOKEN=${TOKEN}
 
 	[Install]
 	WantedBy=multi-user.target
