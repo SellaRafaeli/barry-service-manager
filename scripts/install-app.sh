@@ -23,8 +23,8 @@ git clone --single-branch "$GITHUB_URL" "$TARGET"
 
 echo "--- Configuring application $APP_NAME ---"
 cat >"$TARGET/.env" <<-EOF
-  MONGODB_URI=${MONGODB_CONN_TEMPLATE//BARRY_APP_NAME/${APP_NAME}}
-  RACK_ENV=production
+	MONGODB_URI=${MONGODB_CONN_TEMPLATE//BARRY_APP_NAME/${APP_NAME}}
+	RACK_ENV=production
 EOF
 
 echo "--- Installing dependencies ---"
