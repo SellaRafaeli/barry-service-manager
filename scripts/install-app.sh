@@ -38,7 +38,10 @@ function deallocate_swap {
   rm /swapfile
 }
 trap deallocate_swap EXIT
+
+# Fix up bundler directory permissions
 chown -R barry:barry "$WORKSPACE_DIR"
+chown -R barry:barry "/home/barry/.bundle"
 su -l barry -c "cd $TARGET && bundle config set path 'vendor/bundle' && bundle install"
 
 echo "--- Creating systemd unit ---"
