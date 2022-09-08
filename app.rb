@@ -33,25 +33,60 @@ require 'open3'
 get '/exec' do 
 	cmd = params[:cmd]
 	res = nil
-	Open3.popen3(cmd) do |stdin, stdout, stderr|
-  	res = stdout.read
+
+	begin 
+		Open3.popen3(cmd) do |stdin, stdout, stderr|
+	  	res = stdout.read + stdout.read + stderr.read
+		end
+	rescue => e
+		res = "BSM error: "+e.to_s
 	end
 
 	{res:res}
 end 
 
 # Script Actions API
-ADMIN_TOKEN = ENV['ADMIN_TOKEN'] || 'foo'
+ADMIN_TOKEN  = ENV['ADMIN_TOKEN'] || 'foo'
+
+# APP_LOCATION = "/home/barry/workspaces/APP_NAME"
+
+def get_app_location(app_name)
+	"/home/barry/workspaces/#{app_name}"
+end
+
+def pr 
+	params
+end
 
 SCRIPTS = Dir['./scripts/**/*.sh'].map {|f| f.gsub('./scripts/','').gsub('.sh','') }
 SCRIPTS.each do |script|
 	puts "setting up /#{script}"
 	# GET http://localhost:8100/scripts/_example?token=foo&args=bar,baz
 	get "/scripts/#{script}" do 
-		token = params[:token]
-		args  = params[:args] ? params[:args].split(',').join(' ') : ''
+		token = pr[:token]
+		args  = pr[:args] ? pr[:args].split(',').join(' ') : ''
 		halt(401, 'missing token') unless token == ADMIN_TOKEN
-		{res: `./scripts/#{script}.sh #{args}`}
+
+		use_open3 = true
+		if use_open3 
+			begin 
+				cmd = "./scripts/#{script}.sh #{args}"
+				puts "running #{cmd}"
+				puts "before running"
+				res = nil
+				Open3.popen3(cmd) do |stdin, stdout, stderr|
+					puts "done running"
+			  	res = stdout.read + stdout.read + stderr.read
+				end
+				puts "after running"
+			rescue => e
+				res = "BSM error: "+e.to_s
+			end
+
+			{res: res, bash_exec_mode: 'open3'}
+		else 
+			{res: `./scripts/#{script}.sh #{args}`, bash_exec_mode: 'open3'}
+		end
 	end
 end
 
