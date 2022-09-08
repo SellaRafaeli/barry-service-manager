@@ -42,6 +42,7 @@ trap deallocate_swap EXIT
 bundle install
 chown -R barry:barry "$TARGET"
 chmod a+r "$TARGET"
+su barry -c 'bundle install'
 
 echo "--- Creating systemd unit ---"
 cat >"/etc/systemd/system/${SERVICE_NAME}.service" <<-EOF
