@@ -36,6 +36,7 @@ mkswap /swapfile
 swapon /swapfile
 function deallocate_swap {
   swapoff /swapfile
+  rm /swapfile
 }
 trap deallocate_swap EXIT
 bundle install
