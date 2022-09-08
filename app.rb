@@ -70,7 +70,7 @@ SCRIPTS.each do |script|
 		use_open3 = true
 		if use_open3 
 			begin 
-				cmd = "./scripts/#{script}.sh #{args}"
+				cmd = "sudo -E ./scripts/#{script}.sh #{args}"
 				puts "running #{cmd}"
 				puts "before running"
 				res = nil
@@ -85,7 +85,7 @@ SCRIPTS.each do |script|
 
 			{res: res, bash_exec_mode: 'open3'}
 		else 
-			{res: `./scripts/#{script}.sh #{args}`, bash_exec_mode: 'open3'}
+			{res: `sudo -E ./scripts/#{script}.sh #{args}`, bash_exec_mode: 'open3'}
 		end
 	end
 end
