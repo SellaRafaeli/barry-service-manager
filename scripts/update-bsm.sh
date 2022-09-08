@@ -10,6 +10,6 @@ systemctl restart barry-service-manager.service
 # Update script sudo permissions (in case of new/removed scripts)
 {
   for script in /opt/barry-service-manager/scripts/*.sh; do
-    echo "barry ALL= NOPASSWD: $script"
+    echo "barry ALL= NOPASSWD:SETENV: $script"
   done
 } >/etc/sudoers.d/barry-app-ctrl
