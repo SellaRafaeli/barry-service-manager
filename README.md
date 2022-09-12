@@ -16,7 +16,6 @@ $ bundle exec rackup -p 79
 ssh -i ./barry_ssh ubuntu@<ip address>
 
 
-
 ## Usage 
 
 $BSM = [IP]
@@ -26,3 +25,6 @@ POST $BSM/render-env
 
 POST $BSM/restart-app
 
+# Terraform
+
+https://app.terraform.io/app/barry-cloud/workspaces/barrycloud-mvp
