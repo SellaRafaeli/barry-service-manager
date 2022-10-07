@@ -44,14 +44,14 @@ echo "--- Configuring $APP_TYPE application $APP_NAME ---"
 case "$APP_TYPE" in
     'ruby')
         cat >"$TARGET/.env" <<-EOF
-            MONGODB_URI=${MONGODB_CONN_TEMPLATE//BARRY_APP_NAME/${APP_NAME}}
-            RACK_ENV=production
-        EOF
+MONGODB_URI=${MONGODB_CONN_TEMPLATE//BARRY_APP_NAME/${APP_NAME}}
+RACK_ENV=production
+EOF
         ;;
     'node')
         cat >"$TARGET/.env" <<-EOF
-            MONGODB_URI=${MONGODB_CONN_TEMPLATE//BARRY_APP_NAME/${APP_NAME}}
-        EOF
+MONGODB_URI=${MONGODB_CONN_TEMPLATE//BARRY_APP_NAME/${APP_NAME}}
+EOF
         ;;
 esac
 
@@ -89,7 +89,7 @@ case "$APP_TYPE" in
         ;;
     'node')
         STARTUP_COMMAND="node index.js"
-        EXTRA_ENV="\"MONGODB_URI=$MONGODB_URI\" PORT=80"
+        EXTRA_ENV="\"MONGODB_URI=${MONGODB_CONN_TEMPLATE//BARRY_APP_NAME/${APP_NAME}}\" PORT=80"
         ;;
 esac
 
