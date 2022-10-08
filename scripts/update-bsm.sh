@@ -2,8 +2,10 @@
 
 set -e
 
+if [ -z "$BSM_BRANCH" ]; then BSM_BRANCH="master"; fi
+
 cd /opt/barry-service-manager
-su barry -c 'git fetch && git reset --hard origin/master'
+su barry -c "git fetch && git reset --hard origin/$BSM_BRANCH"
 bundle install
 
 # Rewrite the systemd unit (in case of new/modified environment)
